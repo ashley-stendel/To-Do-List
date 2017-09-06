@@ -3,9 +3,8 @@ logging:
     org.springframework.security: DEBUG
 security:
   sessions: ALWAYS
-spring:
-  session:
-    store-type: redis
+  user:
+    password: password
 zuul:
   routes:
     ui:
@@ -17,3 +16,13 @@ zuul:
     resource:
       url: http://localhost:9000
       sensitive-headers:
+spring:
+  session:
+    store-type: redis
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:mysql://localhost:3306/todolist-users
+    username: root
+    password: 
