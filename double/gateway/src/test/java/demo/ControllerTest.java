@@ -28,7 +28,7 @@ import demo.services.UserDetailsServiceImpl;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ApplicationTest {
+public class ControllerTest {
 
 	//Spring Boot Test creates the bean so we can autowire it
 	@Autowired
@@ -36,12 +36,6 @@ public class ApplicationTest {
 	
 	@MockBean
 	private UserDetailsServiceImpl userDetailsServiceImpl;
-	
-	@Before
-	public void setup()
-	{
-		
-	}
 	
 	
 	@Test
