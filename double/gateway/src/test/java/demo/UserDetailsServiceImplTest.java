@@ -2,11 +2,9 @@ package demo;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,12 +19,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import demo.domain.User;
 import demo.domain.Role;
+import demo.domain.User;
 import demo.repository.RoleRepository;
 import demo.repository.UserRepository;
 import demo.services.UserDetailsServiceImpl;
@@ -122,7 +119,7 @@ public class UserDetailsServiceImplTest {
 	
 		UserDetails found = userDetailsService.loadUserByUsername("Shly");
 		
-		assertThat(found.getUsername()).isEqualTo("Shly");
+		assertThat(found).isEqualTo(userDetails);
 	
 	}
 	

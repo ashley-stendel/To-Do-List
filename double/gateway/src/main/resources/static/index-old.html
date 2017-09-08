@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<base href="/" />
+<!--  Needed for natural routes, removes # -->
+<title>Gateway</title>
+<link href="css/gateway-assets.css" rel="stylesheet">
+<style type="text/css">
+[ng\:cloak], [ng-cloak], .ng-cloak {
+	display: none !important;
+}
+</style>
+</head>
+
+<body ng-app="gateway" ng-controller="navigation as nav" ng-cloak
+class="ng-cloak">
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<!--  <a class="brand" href='#/'>Home</a>  -->
+			<button class="btn btn-primary" ng-click="nav.showHome()">
+				Home</button>
+			<div class="navbar-right">
+				<a class="btn btn-primary" href="#/login"
+					ng-show="!nav.authenticated()">login</a> 
+				<a class="btn btn-primary"
+					ng-show="nav.authenticated()" href="" ng-click="nav.logout()">logout</a>
+				<p ng-show="nav.authenticated()">
+					Signed in as <a href="#/" class="navbar-link">{{nav.user}}</a>
+				</p>
+			</div>
+		</div>
+		<div></div>
+	</nav>
+	<div class="alert alert-danger" ng-show="nav.loginError">There
+		was a problem logging in. Please try again.</div>
+
+	<!--  Display errors from Controller -->
+	<div class="alert alert-danger" ng-show="nav.registerError">
+		<ul>
+			<li ng-repeat="error in nav.registrationErrors">{{ error }}</li>
+		</ul>
+	</div>
+
+	<!--  Display Registration Successfull -->
+	<div class="alert alert-success" ng-show="nav.registerSuccess">
+		Registration Successful. Click <a href="/" class="alert-link">
+			here </a> to log in
+	</div>
+
+	<!--  Show login page! -->
+	<div class="container" ng-show="!nav.authenticated()"
+		ng-hide="nav.register">
+		<form role="form" ng-submit="nav.login()" action="">
+			<div class="form-group">
+				<label for="username">Username:</label> <input type="text"
+					class="form-control" id="username" name="username"
+					ng-model="nav.credentials.username" required />
+			</div>
+			<div class="form-group">
+				<label for="password">Password:</label> <input type="password"
+					class="form-control" id="password" name="password"
+					ng-model="nav.credentials.password" required />
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+
+			<button type="button" class="btn btn-primary"
+				ng-click="nav.goToRegister()">Register</button>
+
+		</form>
+	</div>
+
+	<!--  Show Register Page -->
+	<div class="container"
+		ng-show="!nav.authenticated() &amp;&amp; nav.register">
+		<form role="form" ng-submit="nav.registration()" name="registerForm"
+			novalidate action="">
+			<div class="form-group">
+				<label> Username: </label> <input type="text" class="form-control"
+					placeholder="Enter username" id="username"
+					ng-model="nav.account.username" required /> <label>
+					Password: </label> <input type="password" class="form-control"
+					placeholder="Enter password" id="password" name="password"
+					ng-model="nav.account.password" required ng-minlength="7" />
+				<div ng-show="registerForm.password.$error.minlength"
+					class="alert alert-danger">Password must be at least 7
+					characters</div>
+				<!--  if the minlength field is not respected, it will show the password not long enough message -->
+
+				<label> Confirm Password: </label> <input type="password"
+					class="form-control" placeholder="Confirm password"
+					id="passwordConfirm" name="passwordConfirm"
+					ng-model="nav.account.passwordConfirm" required ng-minlength="7"
+					compare-to="nav.account.password" />
+				<div ng-show="registerForm.passwordConfirm.$error.minlength"
+					class="alert alert-danger">Password must be at least 7
+					characters</div>
+				<div ng-show="registerForm.passwordConfirm.$error.compareTo"
+					class="alert alert-danger">Passwords do not match</div>
+			</div>
+
+			<button type="submit" class="btn btn-primary"
+				ng-disabled="registerForm.$invalid">Register</button>
+		</form>
+	</div>
+
+
+	<div class="container" ng-show="nav.authenticated()">
+		<a class="btn btn-primary" href="/ui/">Go To User Interface</a>
+	</div>
+	<br />
+	<div class="container" ng-show="nav.authenticated() &amp;&amp; nav.admin">
+		<a class="btn btn-primary" href="/admin/">Go To Admin Interface</a>
+	</div>
+	<script src="js/gateway-assets.js" type="text/javascript"></script>
+	<script src="js/angular-bootstrap.js" type="text/javascript"></script>
+	<script src="js/home/home.js" type="text/javascript"></script>
+	<script src="js/navigation/navigation.js" type="text/javascript"></script>
+	<script src="js/gateway.js" type="text/javascript"></script>
+</body>
+</html>

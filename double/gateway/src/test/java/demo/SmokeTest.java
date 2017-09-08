@@ -12,7 +12,7 @@ import demo.controllers.GatewayController;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class SmokeTest 
+public class SmokeTest   
 {
 	//injected before TestMethod Runs
 	@Autowired 
