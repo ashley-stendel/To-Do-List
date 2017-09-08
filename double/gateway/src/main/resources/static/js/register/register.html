@@ -1,0 +1,44 @@
+<!--  Display errors from Controller -->
+<div class="alert alert-danger" ng-show="controller.error">
+	<ul>
+		<li ng-repeat="error in controller.registrationErrors">{{ error }}</li>
+	</ul>
+</div>
+
+<!--  Display Registration Successfull -->
+<div class="alert alert-success" ng-show="controller.registerSuccess">
+		Registration Successful. Click <a
+		href="/" class="alert-link"> here </a> to log in
+</div>
+
+<div class="container">
+	<form role="form" ng-submit="controller.registration()"
+		name="registerForm" novalidate>
+		<div class="form-group">
+			<label> Username: </label> <input type="text" class="form-control"
+				placeholder="Enter username" id="username"
+				ng-model="controller.account.username" required /> <label>
+				Password: </label> <input type="password" class="form-control"
+				placeholder="Enter password" id="password" name="password"
+				ng-model="controller.account.password" required ng-minlength="7" />
+			<div ng-show="registerForm.password.$error.minlength"
+				class="alert alert-danger">Password must be at least 7
+				characters</div>
+			<!--  if the minlength field is not respected, it will show the password not long enough message -->
+
+			<label> Confirm Password: </label> <input type="password"
+				class="form-control" placeholder="Confirm password"
+				id="passwordConfirm" name="passwordConfirm"
+				ng-model="controller.account.passwordConfirm" required
+				ng-minlength="7" compare-to="controller.account.password" />
+			<div ng-show="registerForm.passwordConfirm.$error.minlength"
+				class="alert alert-danger">Password must be at least 7
+				characters</div>
+			<div ng-show="registerForm.passwordConfirm.$error.compareTo"
+				class="alert alert-danger">Passwords do not match</div>
+		</div>
+
+		<button type="submit" class="btn btn-primary"
+			ng-disabled="registerForm.$invalid">Register</button>
+	</form>
+</div>
