@@ -25,8 +25,6 @@ public class GatewayController {
 	@RequestMapping("/user")
 	@ResponseBody
 	public Map<String, Object> user(Principal user) {
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		System.out.println(user.toString());
 		Map<String, Object> map = new LinkedHashMap<String, Object>();
 		map.put("name", user.getName());
 		map.put("roles", AuthorityUtils.authorityListToSet(((Authentication) user)

@@ -1,0 +1,24 @@
+<div class = "container">
+	<form role="form" name="new_task" ng-submit="controller.addTask()">
+	<div class="form-group">
+	
+		<label> Name: </label><input type="text" class="form-control" placeholder="Enter a task name" id="name" ng-model="controller.task.name"/> 
+		<label> Description: </label><input type="text" class="form-control" placeholder="Enter a description" id="description" ng-model="controller.task.description"/> 
+						
+		
+		</div>
+		
+		<button type="submit" class="btn btn-primary"> Add Task</button>
+	</form>
+	</div>
+	
+	<div class="container">
+		<table ng-repeat="task in controller.alltasks">
+			<td> <b> Task Name: </b> {{task.name}} </td>
+			<td> <b> Task Description: </b> {{task.description}} </td>
+			<td> <b> Task Start date: </b> {{task.startDate}} </td>
+		
+		</table>
+		
+	</div>
+	

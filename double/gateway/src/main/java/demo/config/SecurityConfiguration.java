@@ -25,6 +25,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
 		// @formatter:off
+		 /**
+		  * requires auth for every url of application 
+		  * generate login form
+		  * allow user to lockout 
+		  * Prevent CSRF attack 
+		  * Session fixation protection
+		  * Integrates with: httpservletrequest.getremoteuser, .getuserprincipal, .isUserInRole, .login, .logout
+		  */
+	/*
 		auth.inMemoryAuthentication()
 		.withUser("user").password("password").roles("USER") //these defines users with specific roles
 		.and()
@@ -54,7 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.httpBasic().and()
 		.logout().and()
 		.authorizeRequests()
-			.antMatchers("/index.html", "/login", "/register", "/").permitAll()		
+			.antMatchers("/index.html", "/login", "/register","/alltasks", "/").permitAll()		
 			.anyRequest().authenticated()
 			.and()
 		.csrf()

@@ -5,7 +5,6 @@ app.controller('register', function ($route, $http){
 	var self = this;
 	self.account = {};
 	
-	//var registrationErrors = [];
 
 
 	//posting the user to the controller

@@ -1,4 +1,4 @@
-var app = angular.module('gateway', ['ngRoute','auth', 'home', 'message', 'navigation', 'register'])  
+var app = angular.module('gateway', ['ngRoute','auth', 'home', 'message', 'navigation', 'register', 'tasks'])  
 //App depends on two other modules in other JS files
 //Need to load in correct order in index.html (script src="js/home/home.js" ...) and in config method
 
@@ -26,12 +26,16 @@ app.config(function($httpProvider, $routeProvider, $locationProvider) {
 			templateUrl: 'js/register/register.html',
 			controller: 'register',
 			controllerAs: 'controller'
+		}).when("/tasks", {
+			templateUrl: 'js/tasks/tasks.html',
+			controller: 'tasks',
+			controllerAs: 'controller'
 		}).otherwise('/');
 
 });
 
 app.run(function (auth){
-	auth.init('/', '/login', '/logout', '/register')
+	auth.init('/', '/login', '/logout', '/register', '/tasks')
 });
 
 //this allowed to create new "functions" in the html

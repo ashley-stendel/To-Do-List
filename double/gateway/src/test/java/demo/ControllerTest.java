@@ -29,6 +29,8 @@ import demo.services.UserDetailsServiceImpl;
 @AutoConfigureMockMvc
 public class ControllerTest {
 
+	
+	
 	//Spring Boot Test creates the bean so we can autowire it
 	@Autowired
 	private MockMvc mockMvc;
@@ -69,5 +71,7 @@ public class ControllerTest {
 	        throw new RuntimeException(e);
 	    }
 	}  
+	
+	
 	
 }

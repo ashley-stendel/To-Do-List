@@ -26,6 +26,7 @@ var app = angular.module('auth', []).factory(
 					logoutPath: '/logout',
 					homePath: '/',
 					registerPath: '/register',
+					taskPath: '/tasks',
 
 
 					authenticate : function(credentials, callback) {
@@ -78,12 +79,13 @@ var app = angular.module('auth', []).factory(
 
 					}, 
 
-					init: function(homePath, loginPath, logoutPath, registerPath){
+					init: function(homePath, loginPath, logoutPath, registerPath, taskPath){
 						//setting auth instance variables
 						auth.homePath = homePath;
 						auth.loginPath = loginPath;
 						auth.logoutPath = logoutPath;
-						auth.registerPath = registerPath
+						auth.registerPath = registerPath;
+						auth.taskPath = taskPath;
 						
 						$rootScope.$on('$routeChangeStart', function(){
 							enter();

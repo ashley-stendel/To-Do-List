@@ -1,6 +1,6 @@
 logging:
   level:
-    org.springframework.security: DEBUG
+    org.springframework.security: INFO
 security:
   sessions: ALWAYS
   user:
@@ -21,7 +21,7 @@ spring:
     store-type: redis
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
   datasource:
     url: jdbc:mysql://localhost:3306/todolist-users
     username: root
