@@ -1,9 +1,12 @@
 package demo;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,7 +28,14 @@ public class UiApplication {
 		return user;
 	}
 
-	@RequestMapping("/resource")
+	
+	//token endpoint to get the token!!
+	@RequestMapping("/token")
+	public Map<String,String> token(HttpSession session) {
+		return Collections.singletonMap("token", session.getId());
+	}
+
+
 	public Map<String, Object> home() {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("id", UUID.randomUUID().toString());
@@ -44,13 +54,13 @@ public class UiApplication {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic().and()
-				.authorizeRequests()
-					.antMatchers("/index.html", "/home.html", "/login.html", "/").permitAll()
-					.anyRequest().authenticated()
-					.and()
-				.csrf()
-					.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+			.httpBasic().and()
+			.authorizeRequests()
+			.antMatchers("/index.html", "/home.html", "/login.html", "/").permitAll()
+			.anyRequest().authenticated()
+			.and()
+			.csrf()
+			.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 			// @formatter:on
 		}
 	}

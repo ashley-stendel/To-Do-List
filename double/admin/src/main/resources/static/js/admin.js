@@ -4,10 +4,13 @@ function($http) {
 
 	var self = this;
 
+	// template is defined here 
+	// defined by a utility function 
 	var computeDefaultTemplate = function(user) {
 		self.template = user && user.roles && user.roles.indexOf("ROLE_WRITER")>0 ? "write.html" : "read.html";		
 	}
 
+	//here the template is initialized by a utility function when the controller loads
 	$http.get('user').then(function(response) {
 		var data = response.data;
 		if (data.name) {

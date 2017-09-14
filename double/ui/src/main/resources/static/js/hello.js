@@ -9,6 +9,7 @@ function($http) {
 	$http.get('user').then(function(response) {
 		var data = response.data;
 		if (data.name) {
+			console.log();
 			self.authenticated = true;
 			self.user = data.name
 			$http.get('/resource/').then(function(response) {

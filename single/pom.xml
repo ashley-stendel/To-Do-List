@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.test</groupId>
-	<artifactId>admin</artifactId>
+	<artifactId>single</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>double-admin</name>
+	<name>single</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -28,14 +28,6 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.session</groupId>
-			<artifactId>spring-session</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -43,7 +35,19 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<scope>runtime</scope>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>angularjs</artifactId>
+			<version>${angularjs.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jasmine</artifactId>
+			<version>${jasmine.version}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -132,32 +136,36 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+			<plugin>
+				<groupId>com.github.searls</groupId>
+				<artifactId>jasmine-maven-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<additionalContexts>
+						<context>
+							<contextRoot>/lib</contextRoot>
+							<directory>${project.build.directory}/classes/static/js</directory>
+						</context>
+					</additionalContexts>
+					<preloadSources>
+						<source>/lib/angular-bootstrap.js</source>
+						<source>/webjars/angularjs/1.4.9/angular-mocks.js</source>
+					</preloadSources>
+					<jsSrcDir>${project.basedir}/src/main/resources/static/js</jsSrcDir>
+					<jsTestSrcDir>${project.basedir}/src/test/resources/static/js</jsTestSrcDir>
+					<phantomjs>
+						<version>2.1.1</version>
+					</phantomjs>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-  <repositories>
-    <repository>
-      <id>spring-snapshots</id>
-      <name>Spring Snapshots</name>
-      <url>http://repo.spring.io/libs-snapshot-local</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>spring-milestones</id>
-      <name>Spring Milestones</name>
-      <url>http://repo.spring.io/libs-milestone-local</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>spring-releases</id>
-      <name>Spring Releases</name>
-      <url>http://repo.spring.io/libs-release-local</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
+
 </project>
