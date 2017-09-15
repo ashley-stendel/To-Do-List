@@ -6,6 +6,8 @@ import java.util.UUID;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 public class Task 
 {
@@ -18,6 +20,9 @@ public class Task
 	
 	@Id
 	private String id;
+	
+	
+//	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date startDate = new Date();
 	
 	public Task() 
