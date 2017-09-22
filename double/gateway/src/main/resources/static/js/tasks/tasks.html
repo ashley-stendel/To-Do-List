@@ -1,24 +1,71 @@
-<div class = "container">
+<div class="container">
 	<form role="form" name="new_task" ng-submit="controller.addTask()">
-	<div class="form-group">
-	
-		<label> Name: </label><input type="text" class="form-control" placeholder="Enter a task name" id="name" ng-model="controller.task.name"/> 
-		<label> Description: </label><input type="text" class="form-control" placeholder="Enter a description" id="description" ng-model="controller.task.description"/> 
-						
-		
+		<div class="form-group">
+
+			<label> Name: </label> <input type="text" class="form-control"
+				placeholder="Enter a task name" id="name"
+				ng-model="controller.task.name" /> <label> Description: </label> <input
+				type="text" class="form-control" placeholder="Enter a description"
+				id="description" ng-model="controller.task.description" />
+
+
 		</div>
-		
-		<button type="submit" class="btn btn-primary"> Add Task</button>
+
+		<button type="submit" class="btn btn-primary">Add Task</button>
 	</form>
-	</div>
-	
-	<div class="container">
-		<table ng-repeat="task in controller.alltasks">
-			<td> <b> Task Name: </b> {{task.name}} </td>
-			<td> <b> Task Description: </b> {{task.description}} </td>
-			<td> <b> Task Start date: </b> {{task.startDate}} </td>
-		
-		</table>
-		
-	</div>
-	
+</div>
+
+<div class="container">
+
+	<table class="table table-hover">
+
+		<tr>
+			<th><b> Task Name: </b></th>
+			<th><b> Task Description: </b>
+			</td>
+			<th><b> Status: </b>
+			</td>
+			<th><b> Task Start date: </b></th>
+			<th><b> Edit </b></th>
+			<th ng-show = "controller.edit"> Make my changes here!! </th>
+		</tr>
+		<tr ng-repeat="task in controller.alltasks" id="tasktable">
+			<td>{{task.name}}</td>
+			<td>{{task.description}}</td>
+			<td>{{task.status}} <select ng-model="status">
+					<option ng-repeat="s in statuses" id="statuses">{{s}}</option>
+			</select>
+				<p>{{status}}</p>
+				<button type="button" class="btn btn-primary"
+					ng-click="controller.updateStatus(status, task)">Update
+					Status</button>
+
+			</td>
+			<td>{{task.startDate}}</td>
+			<td>
+				<button class="btn btn-primary" ng-click="controller.editTask(task)">
+					Edit me</button>
+				<button class="btn btn-danger"
+					ng-click="controller.deleteTask(task)">Delete</button>
+			</td>
+			
+		</tr>
+		<th ng-show = "controller.edit"> Make my changes here!! </th>
+		<td ng-show="controller.edit">
+			<form role="form" ng-submit="controller.updateTask()">
+					<label> Task Name: </label> <input type="text"
+						class="form-control" placeholder={{controller.taskToEdit.name}} 
+						id ="name"
+						ng-model="controller.taskToEdit.name" /> </label>
+						<label> Task Description: </label> <input type="text"
+						class="form-control" placeholder={{controller.taskToEdit.description}} 
+						id ="name"
+						id="description" ng-model="controller.taskToEdit.description"/>
+					</label>
+					<button class="btn btn-default" type=submit> Save </button>
+				</form>
+			</td>
+
+	</table>
+
+</div>

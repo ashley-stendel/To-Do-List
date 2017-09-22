@@ -22,7 +22,6 @@ public class ResourceController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public Message home() {
-		System.out.println("WHAT THE HECK");
 		return new Message(message);
 	}	
 		

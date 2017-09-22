@@ -3,10 +3,14 @@ package demo.domain;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 
 public class Task 
@@ -14,8 +18,10 @@ public class Task
 
 
 	private String username;
+	@NotNull
 	private String description; 
-	private String status;
+	private Status status;
+	@NotNull
 	private String name;
 	
 	@Id
@@ -30,12 +36,20 @@ public class Task
 		
 	}
 	
-	public Task(String username, String description, String status, String name) {
+		public Task(String username, String description, Status status, String name) {
 		this.username = username;
 		this.description = description;
 		this.status = status;
 		this.name = name;
-	}	
+	}
+		
+		public Task(String id, String username, String description, Status status, String name) {
+			this.id = id;
+			this.username = username;
+			this.description = description;
+			this.status = status;
+			this.name = name;
+		}
 	
 	
 	public String getUsername() {
@@ -50,10 +64,10 @@ public class Task
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 	public String getId() {
@@ -83,6 +97,41 @@ public class Task
 	public String toString() {
 		return "Task [username=" + username + ", description=" + description + ", status=" + status + ", name=" + name
 				+ ", id=" + id + ", startDate=" + startDate + "]";
+	}
+	
+	public enum Status
+	{
+		TO_DO, IN_PROGRESS, COMPLETE;
+		
+		/*
+		 * Purpose of this is to change the output of the ENUM for displaying tasks
+		 * Can be removed if do not want to see status
+		 */
+		//when converting to JSON object will do the following replacement
+		@JsonValue 
+		public String toJson() {
+			//return name().toLowerCase().replaceAll("_", " ");
+			return name();
+		}
+		
+		//Create JSON from String
+		@JsonCreator
+		public static Status fromValue(String value)
+		{
+			Status status;
+			switch (value) {
+				case "TO_DO": status =  Status.TO_DO;
+							  break;
+				case "IN_PROGRESS": status = Status.IN_PROGRESS;
+									break;
+				case "COMPLETE": status = Status.COMPLETE;
+								 break;
+				default: status = Status.TO_DO;
+									break;
+			}
+			return status;
+			}
+		
 	}
 	
 	
